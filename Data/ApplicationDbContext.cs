@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Reeftrack.Models;
 
+
 namespace ReefTrack.Data;
 
 public class ApplicationDbContext : IdentityDbContext
@@ -13,5 +14,7 @@ public class ApplicationDbContext : IdentityDbContext
 
     //DbSet
     public DbSet<Aquarium> Aquariums { get; set; }
+    public DbSet<Models.Fish> Fishes { get; set; }
+    public DbSet<Models.Coral> Corals { get; set; }
 
 }
