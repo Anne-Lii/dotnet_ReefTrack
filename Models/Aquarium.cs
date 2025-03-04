@@ -1,11 +1,13 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.AspNetCore.Identity;
+using ReefTrack.Models;
 
 namespace Reeftrack.Models
 {
     public class Aquarium
     {
+      
         [Key]
         public int Id { get; set; }//unikt id
 
@@ -22,12 +24,15 @@ namespace Reeftrack.Models
         public DateTime StartDate { get; set; } //uppstartsdatum
 
 
-        //Relationer
+        //Relation till användaren
         [Required]
         public string? UserId { get; set; }
 
         [ForeignKey("UserId")]
         public IdentityUser? User { get; set; }
 
+        //Navigeringsproperties för Fiskar och Koraller
+        public List<Fish> Fishes { get; set; } = new List<Fish>(); 
+        public List<Coral> Corals { get; set; } = new List<Coral>();
     }
 }

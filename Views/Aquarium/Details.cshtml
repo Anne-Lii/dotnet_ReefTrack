@@ -46,3 +46,64 @@
     <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>
+
+<hr>
+
+<h3>Fiskar i akvariet</h3>
+@if (Model.Fishes != null && Model.Fishes.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Namn</th>
+                <th>Art</th>
+                <th>Antal</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var fish in Model.Fishes)
+            {
+                <tr>
+                    <td>@fish.CommonName</td>
+                    <td>@fish.Species</td>
+                    <td>@fish.Quantity</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>Inga fiskar registrerade i detta akvarium.</p>
+}
+
+<hr>
+
+<h3>Koraller i akvariet</h3>
+@if (Model.Corals != null && Model.Corals.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Namn</th>
+                <th>Art</th>
+                <th>Antal</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var coral in Model.Corals)
+            {
+                <tr>
+                    <td>@coral.CommonName</td>
+                    <td>@coral.Species</td>
+                    <td>@coral.Quantity</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>Inga koraller registrerade i detta akvarium.</p>
+}
+
