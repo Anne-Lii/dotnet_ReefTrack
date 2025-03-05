@@ -1,4 +1,4 @@
-# Visual Studio files
+
 .vs/
 *.user
 *.suo
@@ -6,14 +6,14 @@
 *.njsproj
 *.sln.docstates
 
-# Build output
+
 bin/
 obj/
 out/
 debug/
 release/
 
-# Dependencies
+
 node_modules/
 packages/
 *.nupkg
@@ -23,7 +23,7 @@ project.assets.json
 packages.lock.json
 .nuget/
 
-# Entity Framework migrations and SQLite database
+
 Migrations/
 *.mdf
 *.ldf
@@ -33,12 +33,12 @@ app.db
 app.db-shm
 app.db-wal
 
-# Secrets and configuration
+
 secrets.json
 *.env
 .env.local
 
-# Logs and crash dumps
+
 *.log
 logs/
 CrashReports/
@@ -46,7 +46,7 @@ error.log
 dotnet_dump.*
 hs_err_pid*
 
-# Temporary files
+
 *.tmp
 *.temp
 *.bak
@@ -55,19 +55,20 @@ hs_err_pid*
 *.DS_Store
 Thumbs.db
 
-# JetBrains Rider and ReSharper
+
 .idea/
 *.dotSettings.user
 
-# Rider logs
 /.idea/workspace.xml
 /.idea/tasks.xml
 /.idea/dictionaries
 /.idea/caches
 
-# Publish output
-publish/
-wwwroot/
 
-# ASP.NET Identity files
+publish/
+wwwroot/images/*
+!wwwroot/images/.gitkeep
+wwwroot/lib/
+
+
 IdentityHostingStartup.cs

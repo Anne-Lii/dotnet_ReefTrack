@@ -13,10 +13,14 @@ namespace ReefTrack.Controllers
     public class AquariumController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IWebHostEnvironment _hostEnviroment;
+        private readonly string wwwRootPath;
 
-        public AquariumController(ApplicationDbContext context)
+        public AquariumController(ApplicationDbContext context, IWebHostEnvironment hostEnvironment)
         {
             _context = context;
+            _hostEnviroment = hostEnvironment;
+            wwwRootPath = hostEnvironment.WebRootPath;
         }
 
         //GET: Aquarium
@@ -57,17 +61,40 @@ namespace ReefTrack.Controllers
         //POST: Aquarium/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Size,Type,StartDate,UserId")] Aquarium aquarium)
+        public async Task<IActionResult> Create([Bind("Id,Name,Size,Type,StartDate,UserId,ImageFile")] Aquarium aquarium)
         {
             if (ModelState.IsValid)
             {
+                //Om det finns en bild
+                if (aquarium.ImageFile != null)
+                {
+                    // Skapa unikt filnamn
+                    string fileName = Guid.NewGuid().ToString() + Path.GetExtension(aquarium.ImageFile.FileName);
+
+                    // Sökväg till wwwroot/images
+                    string uploadPath = Path.Combine(wwwRootPath, "images", fileName);
+
+                    //spara filen i filsystemet
+                    using (var fileStream = new FileStream(uploadPath, FileMode.Create))
+                    {
+                        await aquarium.ImageFile.CopyToAsync(fileStream);
+                    }
+
+                    // Spara filnamnet i databasen
+                    aquarium.ImageName = fileName;
+                }else {
+                    aquarium.ImageName = "empty.jpg";
+                }
+
                 _context.Add(aquarium);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            
             ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", aquarium.UserId);
             return View(aquarium);
         }
+
 
         //GET: Aquarium/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -89,7 +116,7 @@ namespace ReefTrack.Controllers
         //POST: Aquarium/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Size,Type,StartDate,UserId")] Aquarium aquarium)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Size,Type,StartDate,UserId,ImageFile,ImageName")] Aquarium aquarium)
         {
             if (id != aquarium.Id)
             {
@@ -100,6 +127,31 @@ namespace ReefTrack.Controllers
             {
                 try
                 {
+                    if (aquarium.ImageFile != null)
+                    {
+                        // Skapa nytt filnamn
+                        string fileName = Guid.NewGuid().ToString() + Path.GetExtension(aquarium.ImageFile.FileName);
+                        string uploadPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images", fileName);
+
+                        using (var fileStream = new FileStream(uploadPath, FileMode.Create))
+                        {
+                            await aquarium.ImageFile.CopyToAsync(fileStream);
+                        }
+
+                        // Ta bort gammal bild om det finns en
+                        if (!string.IsNullOrEmpty(aquarium.ImageName))
+                        {
+                            string oldImagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images", aquarium.ImageName);
+                            if (System.IO.File.Exists(oldImagePath))
+                            {
+                                System.IO.File.Delete(oldImagePath);
+                            }
+                        }
+
+                        // Uppdatera databasfältet
+                        aquarium.ImageName = fileName;
+                    }
+
                     _context.Update(aquarium);
                     await _context.SaveChangesAsync();
                 }
@@ -116,6 +168,7 @@ namespace ReefTrack.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+
             ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", aquarium.UserId);
             return View(aquarium);
         }
@@ -147,10 +200,20 @@ namespace ReefTrack.Controllers
             var aquarium = await _context.Aquariums.FindAsync(id);
             if (aquarium != null)
             {
+                // Radera bildfil om den finns
+                if (!string.IsNullOrEmpty(aquarium.ImageName))
+                {
+                    string imagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images", aquarium.ImageName);
+                    if (System.IO.File.Exists(imagePath))
+                    {
+                        System.IO.File.Delete(imagePath);
+                    }
+                }
+
                 _context.Aquariums.Remove(aquarium);
+                await _context.SaveChangesAsync();
             }
 
-            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 

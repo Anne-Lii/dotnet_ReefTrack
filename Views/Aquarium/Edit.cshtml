@@ -38,6 +38,14 @@
                 <select asp-for="UserId" class="form-control" asp-items="ViewBag.UserId"></select>
                 <span asp-validation-for="UserId" class="text-danger"></span>
             </div>
+               <div class="form-group">
+                <label asp-for="ImageFile" class="control-label"></label>
+                <input asp-for="ImageFile" type="file" class="form-control" />
+            </div>
+            @if (!string.IsNullOrEmpty(Model.ImageName))
+            {
+                <img src="~/images/@Model.ImageName" alt="Bild på akvarium" class="img-thumbnail" style="max-width: 200px;" />
+            }
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>

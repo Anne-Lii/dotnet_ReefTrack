@@ -8,6 +8,12 @@
 
 <div>
     <h4>Aquarium</h4>
+
+    @if (!string.IsNullOrEmpty(Model.ImageName))
+        {
+            <img src="~/images/@Model.ImageName" alt="Bild på akvarium" class="img-thumbnail" style="max-width: 200px;" />
+        }
+        
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
@@ -34,12 +40,6 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.StartDate)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.User)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.User.Id)
-        </dd>
     </dl>
 </div>
 <div>
@@ -56,6 +56,7 @@
         <thead>
             <tr>
                 <th>Namn</th>
+                <th>Latinskt namn</th>
                 <th>Art</th>
                 <th>Antal</th>
             </tr>
@@ -65,6 +66,7 @@
             {
                 <tr>
                     <td>@fish.CommonName</td>
+                    <td>@fish.LatinName</td>
                     <td>@fish.Species</td>
                     <td>@fish.Quantity</td>
                 </tr>
@@ -86,6 +88,7 @@ else
         <thead>
             <tr>
                 <th>Namn</th>
+                <th>Latinskt namn</th>
                 <th>Art</th>
                 <th>Antal</th>
             </tr>
@@ -95,6 +98,7 @@ else
             {
                 <tr>
                     <td>@coral.CommonName</td>
+                    <td>@coral.LatinName</td>
                     <td>@coral.Species</td>
                     <td>@coral.Quantity</td>
                 </tr>
