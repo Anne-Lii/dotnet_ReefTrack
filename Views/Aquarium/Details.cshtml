@@ -1,13 +1,13 @@
 @model Reeftrack.Models.Aquarium
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detaljer";
 }
 
-<h1>Details</h1>
+<h1>Detaljer</h1>
 
 <div>
-    <h4>Aquarium</h4>
+    <h4>Mitt akvarium</h4>
 
     @if (!string.IsNullOrEmpty(Model.ImageName))
         {
@@ -43,8 +43,8 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model?.Id">Redigera</a> |
+    <a asp-action="Index">Tillbaka till mina akvarium</a>
 </div>
 
 <hr>
@@ -55,6 +55,7 @@
     <table class="table">
         <thead>
             <tr>
+                <th>Bild</th>
                 <th>Namn</th>
                 <th>Latinskt namn</th>
                 <th>Art</th>
@@ -65,6 +66,12 @@
             @foreach (var fish in Model.Fishes)
             {
                 <tr>
+                    <td>
+                        @if (!string.IsNullOrEmpty(fish.ImageName))
+                        {
+                            <img src="~/images/fish/@fish.ImageName" alt="Bild på @fish.CommonName" class="img-thumbnail" style="max-width: 100px;" />
+                        }
+                    </td>
                     <td>@fish.CommonName</td>
                     <td>@fish.LatinName</td>
                     <td>@fish.Species</td>
