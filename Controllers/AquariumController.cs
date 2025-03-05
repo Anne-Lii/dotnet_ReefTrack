@@ -83,7 +83,7 @@ namespace ReefTrack.Controllers
                     // Spara filnamnet i databasen
                     aquarium.ImageName = fileName;
                 }else {
-                    aquarium.ImageName = "empty.jpg";
+                    aquarium.ImageName = "5ef9a130-2089-49d7-bfb2-d19c0e628bcf.jpg";
                 }
 
                 _context.Add(aquarium);

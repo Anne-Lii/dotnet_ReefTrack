@@ -25,6 +25,7 @@ namespace ReefTrack.Models
         public int Quantity { get; set; } //Antal
 
         [Required]
+        [DataType(DataType.Date)]
         [Display(Name = "Inköpsdatum")]
         public DateTime AddedDate { get; set; } //Datum när korallen lades till
 

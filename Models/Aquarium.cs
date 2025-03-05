@@ -24,6 +24,7 @@ namespace Reeftrack.Models
         public string? Type { get; set; } //"Saltvatten" eller "Sötvatten"
 
         [Required]
+        [DataType(DataType.Date)]
         [Display(Name = "Uppstartsdatum")]
         public DateTime StartDate { get; set; } //uppstartsdatum
 
