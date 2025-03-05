@@ -45,31 +45,46 @@ namespace ReefTrack.Controllers
             return View(fish);
         }
 
-        // GET: Fish/Create
+        //GET: Fish/Create
         public IActionResult Create()
         {
             ViewData["AquariumId"] = new SelectList(_context.Aquariums, "Id", "Name");
             return View();
         }
 
-        // POST: Fish/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        //POST: Fish/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,CommonName,LatinName,Species,Quantity,AddedDate,AquariumId")] Fish fish)
+        public async Task<IActionResult> Create([Bind("Id,CommonName,LatinName,Species,Quantity,AddedDate,AquariumId,ImageFile")] Fish fish)
         {
             if (ModelState.IsValid)
             {
+                if (fish.ImageFile != null)
+                {
+                    // Skapa unikt filnamn
+                    string fileName = Guid.NewGuid().ToString() + Path.GetExtension(fish.ImageFile.FileName);
+                    string uploadPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/fish", fileName);
+
+                    using (var fileStream = new FileStream(uploadPath, FileMode.Create))
+                    {
+                        await fish.ImageFile.CopyToAsync(fileStream);
+                    }
+
+                    // Spara filnamnet i databasen
+                    fish.ImageName = fileName;
+                }
+
                 _context.Add(fish);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+
             ViewData["AquariumId"] = new SelectList(_context.Aquariums, "Id", "Name", fish.AquariumId);
             return View(fish);
         }
 
-        // GET: Fish/Edit/5
+
+        //GET: Fish/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -87,11 +102,9 @@ namespace ReefTrack.Controllers
         }
 
         // POST: Fish/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,CommonName,LatinName,Species,Quantity,AddedDate,AquariumId")] Fish fish)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,CommonName,LatinName,Species,Quantity,AddedDate,AquariumId,ImageFile,ImageName")] Fish fish)
         {
             if (id != fish.Id)
             {
@@ -102,6 +115,30 @@ namespace ReefTrack.Controllers
             {
                 try
                 {
+                    if (fish.ImageFile != null)
+                    {
+                        // Ta bort gammal bild om det finns en
+                        if (!string.IsNullOrEmpty(fish.ImageName))
+                        {
+                            string oldImagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/fish", fish.ImageName);
+                            if (System.IO.File.Exists(oldImagePath))
+                            {
+                                System.IO.File.Delete(oldImagePath);
+                            }
+                        }
+
+                        // Ladda upp ny bild
+                        string fileName = Guid.NewGuid().ToString() + Path.GetExtension(fish.ImageFile.FileName);
+                        string uploadPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/fish", fileName);
+
+                        using (var fileStream = new FileStream(uploadPath, FileMode.Create))
+                        {
+                            await fish.ImageFile.CopyToAsync(fileStream);
+                        }
+
+                        fish.ImageName = fileName;
+                    }
+
                     _context.Update(fish);
                     await _context.SaveChangesAsync();
                 }
@@ -118,9 +155,11 @@ namespace ReefTrack.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+
             ViewData["AquariumId"] = new SelectList(_context.Aquariums, "Id", "Name", fish.AquariumId);
             return View(fish);
         }
+
 
         // GET: Fish/Delete/5
         public async Task<IActionResult> Delete(int? id)

@@ -43,6 +43,10 @@
                 <select asp-for="AquariumId" class="form-control" asp-items="ViewBag.AquariumId"></select>
                 <span asp-validation-for="AquariumId" class="text-danger"></span>
             </div>
+             @if (!string.IsNullOrEmpty(Model.ImageName))
+            {
+                <img src="~/images/fish/@Model.ImageName" alt="Bild på akvarium" class="img-thumbnail" style="max-width: 200px;" />
+            }
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
