@@ -7,7 +7,7 @@
 <h1>Detaljer</h1>
 
 <div>
-    <h4>Mitt akvarium</h4>
+    <h4>@Html.DisplayFor(model => model.Name)</h4>
 
     @if (!string.IsNullOrEmpty(Model.ImageName))
         {
@@ -17,16 +17,10 @@
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Size)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Size)
+            @Html.DisplayFor(model => model.Size) L
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Type)
@@ -69,7 +63,7 @@
                     <td>
                         @if (!string.IsNullOrEmpty(fish.ImageName))
                         {
-                            <img src="~/images/fish/@fish.ImageName" alt="Bild på @fish.CommonName" class="img-thumbnail" style="max-width: 100px;" />
+                            <img src="~/images/fish/@fish.ImageName" alt="Bild på @fish.CommonName" class="img-thumbnail fish-image"/>
                         }
                     </td>
                     <td>@fish.CommonName</td>
