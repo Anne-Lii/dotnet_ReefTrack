@@ -1,26 +1,26 @@
 @model Reeftrack.Models.Aquarium
 
 @{
-    ViewData["Title"] = "Detaljer";
+    ViewData["Title"] = "Details";
 }
 
-<h1>Detaljer</h1>
+<h1>Details</h1>
 
 <div>
-    <h2>@Html.DisplayFor(model => model.Name)</h2>
-
-    @if (!string.IsNullOrEmpty(Model.ImageName))
-    {
-        <img src="~/images/@Model.ImageName" alt="Bild på akvarium" class="img-thumbnail" style="max-width: 200px;" />
-    }
-        
+    <h4>Aquarium</h4>
     <hr />
     <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Size)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Size) L
+            @Html.DisplayFor(model => model.Size)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Type)
@@ -34,88 +34,21 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.StartDate)
         </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ImageName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ImageName)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.User)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.User.Id)
+        </dd>
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Redigera</a> |
-    <a asp-action="Index">Tillbaka till mina akvarium</a>
+    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
 </div>
-
-<hr>
-
-<h3>Fiskar i akvariet</h3>
-@if (Model.Fishes != null && Model.Fishes.Any())
-{
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Bild</th>
-                <th>Namn</th>
-                <th>Latinskt namn</th>
-                <th>Art</th>
-                <th>Antal</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var fish in Model.Fishes)
-            {
-                <tr>
-                    <td>
-                        @if (!string.IsNullOrEmpty(fish.ImageName))
-                        {
-                            <img src="~/images/fish/@fish.ImageName" alt="Bild på @fish.CommonName" class="img-thumbnail fish-image"/>
-                        }
-                    </td>
-                    <td>@fish.CommonName</td>
-                    <td>@fish.LatinName</td>
-                    <td>@fish.Species</td>
-                    <td>@fish.Quantity</td>
-                </tr>
-            }
-        </tbody>
-    </table>
-}
-else
-{
-    <p>Inga fiskar registrerade i detta akvarium.</p>
-}
-
-<hr>
-
-<h3>Koraller i akvariet</h3>
-@if (Model.Corals != null && Model.Corals.Any())
-{
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Bild</th>
-                <th>Namn</th>
-                <th>Latinskt namn</th>
-                <th>Art</th>
-                <th>Antal</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var coral in Model.Corals)
-            {
-                <tr>
-                    <td>
-                        @if (!string.IsNullOrEmpty(coral.ImageName))
-                        {
-                            <img src="~/images/coral/@coral.ImageName" alt="Bild på @coral.CommonName" class="img-thumbnail coral-image"/>
-                        }
-                    </td>
-                    <td>@coral.CommonName</td>
-                    <td>@coral.LatinName</td>
-                    <td>@coral.Species</td>
-                    <td>@coral.Quantity</td>
-                </tr>
-            }
-        </tbody>
-    </table>
-}
-else
-{
-    <p>Inga koraller registrerade i detta akvarium.</p>
-}
-

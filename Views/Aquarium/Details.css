@@ -1,7 +1,0 @@
-.fish-image {
-    width: 100px;  /* Fast bredd */
-    height: 100px; /* Fast höjd */
-    object-fit: cover; /* Gör att bilden fyller ramen och beskärs om det behövs */
-    border-radius: 50%; /* Ger en cirkulär form */
-    border: none;
-}

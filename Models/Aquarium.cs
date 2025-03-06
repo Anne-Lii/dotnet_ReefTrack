@@ -25,7 +25,7 @@ namespace Reeftrack.Models
 
         [Required]
         [DataType(DataType.Date)]
-        [Display(Name = "Uppstartsdatum")]
+        [Display(Name = "Startdatum")]
         public DateTime StartDate { get; set; } //uppstartsdatum
 
         public string? ImageName {get; set;}//filnamn som lagras i databasen
