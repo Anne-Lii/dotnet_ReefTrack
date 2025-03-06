@@ -12,6 +12,7 @@
 <table class="table">
     <thead>
         <tr>
+            <th>Bild</th>
             <th>
                 @Html.DisplayNameFor(model => model.Name)
             </th>
@@ -30,6 +31,12 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
+            <td>
+                @if (!string.IsNullOrEmpty(item.ImageName))
+                {
+                    <img src="~/images/@item.ImageName" alt="Bild på akvarium" class="img-thumbnail" style="max-width: 100px;" />
+                }
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
