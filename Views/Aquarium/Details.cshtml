@@ -7,12 +7,12 @@
 <h1>Detaljer</h1>
 
 <div>
-    <h4>@Html.DisplayFor(model => model.Name)</h4>
+    <h2>@Html.DisplayFor(model => model.Name)</h2>
 
     @if (!string.IsNullOrEmpty(Model.ImageName))
-        {
-            <img src="~/images/@Model.ImageName" alt="Bild på akvarium" class="img-thumbnail" style="max-width: 200px;" />
-        }
+    {
+        <img src="~/images/@Model.ImageName" alt="Bild på akvarium" class="img-thumbnail" style="max-width: 200px;" />
+    }
         
     <hr />
     <dl class="row">
@@ -88,6 +88,7 @@ else
     <table class="table">
         <thead>
             <tr>
+                <th>Bild</th>
                 <th>Namn</th>
                 <th>Latinskt namn</th>
                 <th>Art</th>
@@ -98,6 +99,12 @@ else
             @foreach (var coral in Model.Corals)
             {
                 <tr>
+                    <td>
+                        @if (!string.IsNullOrEmpty(coral.ImageName))
+                        {
+                            <img src="~/images/coral/@coral.ImageName" alt="Bild på @coral.CommonName" class="img-thumbnail coral-image"/>
+                        }
+                    </td>
                     <td>@coral.CommonName</td>
                     <td>@coral.LatinName</td>
                     <td>@coral.Species</td>

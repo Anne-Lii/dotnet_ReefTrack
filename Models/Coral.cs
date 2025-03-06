@@ -29,6 +29,12 @@ namespace ReefTrack.Models
         [Display(Name = "Inköpsdatum")]
         public DateTime AddedDate { get; set; } //Datum när korallen lades till
 
+        public string? ImageName {get; set;}//filnamn som lagras i databasen
+
+        [NotMapped]
+        [Display(Name = "Bild")]
+        public IFormFile? ImageFile { get; set; }//lagras ej i databasen
+
         // Relationer
         [Required]
         public int AquariumId { get; set; }

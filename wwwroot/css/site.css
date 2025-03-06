@@ -3,11 +3,21 @@ html {
 }
 
 /*Bild på fisk och korall under mina akvarium*/
-.fish-image {
+.fish-image, .coral-image {
   width: 100px;  
   height: 100px; 
+  min-width: 100px;  
+  min-height: 100px; 
   object-fit: cover; 
   border-radius: 50%; 
+  border: none;
+}
+.fish-image-list {
+  width: 100px;  
+  height: 100px; 
+  min-width: 100px;
+  min-height: 100px;
+  object-fit: fill; 
   border: none;
 }
 
@@ -38,4 +48,17 @@ body {
 
 .form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
   text-align: start;
+}
+
+@media (max-width: 768px) {
+
+  /*Bild på fisk och korall under mina akvarium*/
+  .fish-image, .coral-image {
+    width: 70px;  
+    height: 70px;  
+    min-width: 70px;    
+    min-height: 70px; 
+  }
+ 
+
 }

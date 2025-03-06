@@ -52,22 +52,41 @@ namespace ReefTrack.Controllers
             return View();
         }
 
-        // POST: Coral/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        //POST: Coral/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,CommonName,LatinName,Species,Quantity,AddedDate,AquariumId")] Coral coral)
+        public async Task<IActionResult> Create([Bind("Id,CommonName,LatinName,Species,Quantity,AddedDate,AquariumId,ImageFile")] Coral coral)
         {
             if (ModelState.IsValid)
             {
+                // Hantera bilduppladdning om en bild är vald
+                if (coral.ImageFile != null)
+                {
+                    // Skapa unikt filnamn för att undvika namnkonflikter
+                    string fileName = Guid.NewGuid().ToString() + Path.GetExtension(coral.ImageFile.FileName);
+                    string uploadPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/coral", fileName);
+
+                    // Ladda upp filen till servern
+                    using (var fileStream = new FileStream(uploadPath, FileMode.Create))
+                    {
+                        await coral.ImageFile.CopyToAsync(fileStream);
+                    }
+
+                    // Spara filnamnet i databasen
+                    coral.ImageName = fileName;
+                }
+
+                // Lägg till korallen i databasen
                 _context.Add(coral);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+
+            // Återvänd till vyn om modellen inte är giltig
             ViewData["AquariumId"] = new SelectList(_context.Aquariums, "Id", "Name", coral.AquariumId);
             return View(coral);
         }
+
 
         // GET: Coral/Edit/5
         public async Task<IActionResult> Edit(int? id)

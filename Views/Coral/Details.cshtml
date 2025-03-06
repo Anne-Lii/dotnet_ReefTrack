@@ -9,6 +9,12 @@
 <div>
     <h4>Coral</h4>
     <hr />
+
+    @if (!string.IsNullOrEmpty(Model.ImageName))
+    {
+        <img src="~/images/coral/@Model.ImageName" alt="Bild på korall" class="img-thumbnail" style="max-width: 200px;" />
+    }
+
     <dl class="row">
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.CommonName)

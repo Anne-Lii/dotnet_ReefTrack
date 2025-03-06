@@ -8,6 +8,10 @@
 
 <div>
     <h4>Fish</h4>
+    @if (!string.IsNullOrEmpty(Model.ImageName))
+    {
+        <img src="~/images/fish/@Model.ImageName" alt="Bild på fisk" class="img-thumbnail" style="max-width: 200px;" />
+    }
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
