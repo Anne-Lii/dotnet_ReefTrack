@@ -25,7 +25,7 @@
             @Html.DisplayNameFor(model => model.Size)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Size) L
+            @Html.DisplayFor(model => model.Size)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Type)
@@ -41,6 +41,82 @@
         </dd>
     </dl>
 </div>
+<hr />
+
+<!-- Lista över fiskar -->
+<h2>Fiskar i akvariet</h2>
+
+<p>
+    <a asp-controller="Fish" asp-action="Create" asp-route-aquariumId="@Model.Id" class="btn btn-success">Lägg till fisk</a>
+</p>
+
+@if (Model.Fishes.Any())
+{
+    <div class="fish-list">
+        @foreach (var fish in Model.Fishes)
+        {
+            <article class="fish-card">
+                @if (!string.IsNullOrEmpty(fish.ImageName))
+                {
+                    <img src="~/images/fish/@fish.ImageName" alt="@fish.CommonName" class="fish-image" />
+                }
+                else
+                {
+                    <img src="~/images/placeholder.png" alt="Ingen bild" class="fish-image" />
+                }
+                <div class="fish-info">
+                    <h3>@fish.CommonName</h3>
+                    <p><strong>Vetanskapligt namn:</strong> @fish.LatinName</p>
+                    <p><strong>Art:</strong> @fish.Species</p>
+                    <p><strong>Antal:</strong> @fish.Quantity</p>
+                </div>
+            </article>
+        }
+    </div>
+}
+else
+{
+    <p>Inga fiskar i akvariet.</p>
+}
+
+<hr />
+
+<!-- Lista över koraller -->
+<h2>Koraller i akvariet</h2>
+<p>
+    <a asp-controller="Coral" asp-action="Create" asp-route-aquariumId="@Model.Id" class="btn btn-success">Lägg till korall</a>
+
+</p>
+
+@if (Model.Corals.Any())
+{
+    <div class="coral-list">
+        @foreach (var coral in Model.Corals)
+        {
+            <article class="coral-card">
+                @if (!string.IsNullOrEmpty(coral.ImageName))
+                {
+                    <img src="~/images/coral/@coral.ImageName" alt="@coral.CommonName" class="coral-image" />
+                }
+                else
+                {
+                    <img src="~/images/placeholder.png" alt="Ingen bild" class="coral-image" />
+                }
+                <div class="coral-info">
+                    <h3>@coral.CommonName</h3>
+                    <p><strong>Vetenskapligt namn:</strong> @coral.LatinName</p>
+                    <p><strong>Art:</strong> @coral.Species</p>
+                    <p><strong>Antal:</strong> @coral.Quantity</p>
+                </div>
+            </article>
+        }
+    </div>
+}
+else
+{
+    <p>Inga koraller i akvariet.</p>
+}
+
 <div>
     <a asp-action="Edit" asp-route-id="@Model?.Id">Redigera</a> |
     <a asp-action="Index">Tillbaka</a>

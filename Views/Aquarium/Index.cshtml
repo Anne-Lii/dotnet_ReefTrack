@@ -1,7 +1,7 @@
 @model IEnumerable<Reeftrack.Models.Aquarium>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Mina akvarium";
 }
 
 <h1>Mina akvarium</h1>
@@ -9,45 +9,33 @@
 <p>
     <a asp-action="Create">Lägg till nytt akvarium</a>
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Size)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Type)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.StartDate)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Size)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Type)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.StartDate)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Redigera</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Detaljer</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Ta bort</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+
+<div class="aquarium-list">
+    @foreach (var item in Model)
+    {
+        <article class="aquarium-card">
+            <div class="aquarium-image">
+                @if (!string.IsNullOrEmpty(item.ImageName))
+                {
+                    <img src="~/images/@item.ImageName" alt="@item.Name" class="img-fluid" />
+                }
+                else
+                {
+                    <img src="~/images/placeholder.png" alt="Ingen bild tillgänglig" class="img-fluid" />
+                }
+            </div>
+            <div class="aquarium-info">
+                <h2>@item.Name</h2>
+                <p><strong>Storlek:</strong> @item.Size</p>
+                <p><strong>Typ:</strong> @item.Type</p>
+                <p><strong>Startdatum:</strong> @item.StartDate.ToString("yyyy-MM-dd")</p>
+                <div class="aquarium-actions">
+                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info">Detaljer</a>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning">Redigera</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Ta bort</a>
+                </div>
+            </div>
+        </article>
+    }
+</div>
+

@@ -9,7 +9,7 @@ namespace Reeftrack.Models
     {
         //Properties
         [Key]
-        public int Id { get; set; }//unikt id
+        public int Id { get; set; }//unikt id PK
 
         [Required]
         [Display(Name = "Namn")]
@@ -37,13 +37,14 @@ namespace Reeftrack.Models
 
         //Relation till användaren
         [Required]
-        public string? UserId { get; set; }
+        public string UserId { get; set; } = null!;
 
         [ForeignKey("UserId")]
-        public IdentityUser? User { get; set; }
+        public virtual IdentityUser? User { get; set; }//FK
 
         //Navigeringsproperties för Fiskar och Koraller
-        public List<Fish> Fishes { get; set; } = new List<Fish>(); 
-        public List<Coral> Corals { get; set; } = new List<Coral>();
+        public ICollection<Fish> Fishes { get; set; } = new List<Fish>();
+        public ICollection<Coral> Corals { get; set; } = new List<Coral>();
+
     }
 }

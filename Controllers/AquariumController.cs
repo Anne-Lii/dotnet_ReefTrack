@@ -43,8 +43,11 @@ namespace ReefTrack.Controllers
             }
 
             var aquarium = await _context.Aquariums
-                .Include(a => a.User)
+                .Include(a => a.User)//laddar användare
+                .Include(a => a.Fishes)//laddar fiskar i akvarium
+                .Include(a => a.Corals)//laddar koraller i akvarium
                 .FirstOrDefaultAsync(m => m.Id == id);
+                
             if (aquarium == null)
             {
                 return NotFound();

@@ -27,7 +27,7 @@ namespace ReefTrack.Models
         [Required]
         [DataType(DataType.Date)]
         [Display(Name = "Inköpsdatum")]
-        public DateTime AddedDate { get; set; } //Datum då fisken lades till
+        public DateTime AddedDate { get; set; } = DateTime.UtcNow; //Standard: Nuvarande datum
 
         public string? ImageName {get; set;}//filnamn som lagras i databasen
 
