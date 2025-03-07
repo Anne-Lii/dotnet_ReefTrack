@@ -1,13 +1,13 @@
 @model ReefTrack.Models.Fish
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detaljer";
 }
 
-<h1>Details</h1>
+<h1>Detaljer</h1>
 
 <div>
-    <h4>Fish</h4>
+   
     @if (!string.IsNullOrEmpty(Model.ImageName))
     {
         <img src="~/images/fish/@Model.ImageName" alt="Bild på fisk" class="img-thumbnail" style="max-width: 200px;" />
@@ -53,6 +53,6 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model?.Id">Redigera</a> |
+    <a asp-action="Index">Tillbaka</a>
 </div>
