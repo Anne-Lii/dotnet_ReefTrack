@@ -87,7 +87,7 @@ namespace ReefTrack.Controllers
                     }
 
                 } else {
-                    aquarium.ImageName = "placeholder.jpg"; //default bild om bild saknas
+                    aquarium.ImageName = "placeholder.png"; //default bild om bild saknas
                 }
                 
                 var userId = User.FindFirstValue(ClaimTypes.NameIdentifier); //Hämta inloggad användares ID

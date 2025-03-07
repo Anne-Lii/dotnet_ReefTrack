@@ -1,13 +1,18 @@
 @model Reeftrack.Models.Aquarium
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detaljer";
 }
 
-<h1>Details</h1>
+<h1>Mitt akvarium</h1>
 
 <div>
-    <h4>Aquarium</h4>
+    
+    @if (!string.IsNullOrEmpty(Model.ImageName))
+    {
+        <img src="~/images/@Model.ImageName" alt="Aquarium Image" class="img-fluid" style="max-width: 300px;" />
+    }
+    
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
@@ -33,18 +38,6 @@
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.StartDate)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ImageName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ImageName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.User)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.User.Id)
         </dd>
     </dl>
 </div>
