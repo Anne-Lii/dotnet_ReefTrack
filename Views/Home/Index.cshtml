@@ -1,8 +1,44 @@
-﻿@{
+﻿@model IEnumerable<Reeftrack.Models.Aquarium>
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Välkommen till ReefTrack</h1>
+    <p>Här kan du registrera ditt akvarium samt lägga till fiskar och koraller för att hålla koll på dina akvarium.</p>
 </div>
+
+<hr />
+
+<!-- Lista över akvarier -->
+<h2>Alla registrerade akvarium</h2>
+
+@if (!Model.Any())
+{
+    <p>Det finns inga akvarium registrerade ännu.</p>
+}
+else
+{
+    <div class="aquarium-list">
+        @foreach (var aquarium in Model)
+        {
+            <article class="aquarium-card">
+                <div class="aquarium-image">
+                    @if (!string.IsNullOrEmpty(aquarium.ImageName))
+                    {
+                        <img src="/images/@aquarium.ImageName" alt="@aquarium.Name" class="aquarium-thumbnail" />
+                    }
+                    else
+                    {
+                        <img src="/images/placeholder.png" alt="Ingen bild" class="aquarium-thumbnail" />
+                    }
+                </div>
+                <div class="aquarium-info">
+                    <h3>@aquarium.Name</h3>
+                    <p><strong>Volym:</strong> @aquarium.Size liter</p>
+                </div>
+            </article>
+        }
+    </div>
+}
