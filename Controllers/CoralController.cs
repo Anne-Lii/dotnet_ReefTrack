@@ -108,11 +108,9 @@ namespace ReefTrack.Controllers
         }
 
         // POST: Coral/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,CommonName,LatinName,Species,Quantity,AddedDate,AquariumId")] Coral coral)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,CommonName,LatinName,Species,Quantity,AddedDate,AquariumId,ImageName")] Coral coral, IFormFile? ImageFile)
         {
             if (id != coral.Id)
             {
@@ -123,6 +121,35 @@ namespace ReefTrack.Controllers
             {
                 try
                 {
+
+                    if (ImageFile != null)
+                    {
+                        // Spara den nya bilden
+                        string fileName = Path.GetFileNameWithoutExtension(ImageFile.FileName);
+                        string extension = Path.GetExtension(ImageFile.FileName);
+                        fileName = fileName.Replace(" ", "") + "_" + Guid.NewGuid().ToString() + extension;
+
+                        // Sökväg till wwwroot/images/coral
+                        string filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/coral", fileName);
+
+                        using (var fileStream = new FileStream(filePath, FileMode.Create))
+                        {
+                            await ImageFile.CopyToAsync(fileStream);
+                        }
+
+                        // Ta bort den gamla bilden om den finns
+                        if (!string.IsNullOrEmpty(coral.ImageName))
+                        {
+                            string oldFilePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/coral", coral.ImageName);
+                            if (System.IO.File.Exists(oldFilePath))
+                            {
+                                System.IO.File.Delete(oldFilePath);
+                            }
+                        }
+
+                        // Uppdatera bildnamnet
+                        coral.ImageName = fileName;
+                    }
                     _context.Update(coral);
                     await _context.SaveChangesAsync();
                 }
@@ -139,7 +166,7 @@ namespace ReefTrack.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["AquariumId"] = new SelectList(_context.Aquariums, "Id", "Name", coral.AquariumId);
+          
             return View(coral);
         }
 
