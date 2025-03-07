@@ -30,9 +30,9 @@ namespace Reeftrack.Models
 
         public string? ImageName {get; set;}//filnamn som lagras i databasen
 
-        [NotMapped]
+        [NotMapped]//lagras ej i databasen
         [Display(Name = "Bild")]
-        public IFormFile? ImageFile { get; set; }//lagras ej i databasen
+        public IFormFile? ImageFile { get; set; }
 
 
         //Relation till användaren
