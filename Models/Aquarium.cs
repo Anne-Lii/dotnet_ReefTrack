@@ -13,7 +13,8 @@ namespace Reeftrack.Models
 
         [Required(ErrorMessage = "Namn på akvariet är obligatoriskt.")]
         [StringLength(100, ErrorMessage = "Namn får inte vara längre än 100 tecken.")]
-        [RegularExpression(@"\S+", ErrorMessage = "Namn kan inte vara tomt eller innehålla bara mellanslag.")]
+        [RegularExpression(@"^(?!\s*$).+", ErrorMessage = "Namn kan inte vara tomt eller innehålla bara mellanslag.")]
+
         [Display(Name = "Namn")]
         public string? Name { get; set; }//Namn på akvaiet
 
