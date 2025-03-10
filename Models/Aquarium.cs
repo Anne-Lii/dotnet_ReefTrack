@@ -11,21 +11,24 @@ namespace Reeftrack.Models
         [Key]
         public int Id { get; set; }//unikt id PK
 
-        [Required]
+        [Required(ErrorMessage = "Namn på akvariet är obligatoriskt.")]
+        [StringLength(100, ErrorMessage = "Namn får inte vara längre än 100 tecken.")]
+        [RegularExpression(@"\S+", ErrorMessage = "Namn kan inte vara tomt eller innehålla bara mellanslag.")]
         [Display(Name = "Namn")]
         public string? Name { get; set; }//Namn på akvaiet
 
-        [Required]
+        [Required(ErrorMessage = "Storlek i liter måste anges.")]
+        [Range(1, int.MaxValue, ErrorMessage = "Storleken måste vara minst 1 liter.")]
         [Display(Name = "Storlek")]
         public int Size { get; set; }//volym i liter
 
-        [Required]
+        [Required(ErrorMessage = "Sötvatten eller saltvatten måste anges.")]
+        [StringLength(50, ErrorMessage = "Typ får inte vara längre än 50 tecken.")]
         [Display(Name = "Typ")]
         public string? Type { get; set; } //"Saltvatten" eller "Sötvatten"
 
-        [Required]
-        [DataType(DataType.Date)]
-        [Display(Name = "Startdatum")]
+        [Required(ErrorMessage = "Startdatum måste anges.")]
+        [DataType(DataType.Date)][Display(Name = "Startdatum")]
         public DateTime StartDate { get; set; } //uppstartsdatum
 
         public string? ImageName {get; set;}//filnamn som lagras i databasen
@@ -36,7 +39,7 @@ namespace Reeftrack.Models
 
 
         //Relation till användaren
-        [Required]
+        [Required(ErrorMessage = "En användare måste vara kopplad till akvariet.")]
         public string UserId { get; set; } = null!;
 
         [ForeignKey("UserId")]
