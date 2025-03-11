@@ -10,10 +10,10 @@
     
     @if (!string.IsNullOrEmpty(Model.ImageName))
     {
-        <img src="~/images/@Model.ImageName" alt="Aquarium Image" class="img-fluid" style="max-width: 300px;" />
+        <img src="~/images/@Model.ImageName" alt="Aquarium Image" class="img-fluid" style="max-width: 300px;">
     }
     
-    <hr />
+    <hr>
     <dl class="row">
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Name)
@@ -41,7 +41,7 @@
         </dd>
     </dl>
 </div>
-<hr />
+<hr>
 
 <!-- Lista över fiskar -->
 <h2>Fiskar i akvariet</h2>
@@ -58,11 +58,11 @@
             <article class="fish-card">
                 @if (!string.IsNullOrEmpty(fish.ImageName))
                 {
-                    <img src="~/images/fish/@fish.ImageName" alt="@fish.CommonName" class="fish-image" />
+                    <img src="~/images/fish/@fish.ImageName" alt="@fish.CommonName" class="fish-image">
                 }
                 else
                 {
-                    <img src="~/images/placeholder.png" alt="Ingen bild" class="fish-image" />
+                    <img src="~/images/placeholder.png" alt="Ingen bild" class="fish-image">
                 }
                 <div class="fish-info">
                     <h3>@fish.CommonName</h3>
@@ -79,13 +79,12 @@ else
     <p>Inga fiskar i akvariet.</p>
 }
 
-<hr />
+<hr>
 
 <!-- Lista över koraller -->
 <h2>Koraller i akvariet</h2>
 <p>
     <a asp-controller="Coral" asp-action="Create" asp-route-aquariumId="@Model.Id" class="btn btn-success">Lägg till korall</a>
-
 </p>
 
 @if (Model.Corals.Any())
@@ -96,11 +95,11 @@ else
             <article class="coral-card">
                 @if (!string.IsNullOrEmpty(coral.ImageName))
                 {
-                    <img src="~/images/coral/@coral.ImageName" alt="@coral.CommonName" class="coral-image" />
+                    <img src="~/images/coral/@coral.ImageName" alt="@coral.CommonName" class="coral-image">
                 }
                 else
                 {
-                    <img src="~/images/placeholder.png" alt="Ingen bild" class="coral-image" />
+                    <img src="~/images/placeholder.png" alt="Ingen bild" class="coral-image">
                 }
                 <div class="coral-info">
                     <h3>@coral.CommonName</h3>

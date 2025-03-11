@@ -81,7 +81,7 @@ namespace ReefTrack.Controllers
                     aquarium.ImageName = fileName = fileName.Replace(" ", string.Empty) + DateTime.Now.ToString("yymmddhhss") + extension;
                     
                     //sökväg till wwwroot/images
-                    string path = Path.Combine(wwwrootPath + "/images", fileName);
+                    string path = Path.Combine(wwwrootPath, "images", fileName);
 
                     //spara i filsystemet
                     using (var fileStream = new FileStream(path, FileMode.Create))
