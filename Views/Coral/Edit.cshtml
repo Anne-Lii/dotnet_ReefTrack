@@ -5,40 +5,40 @@
 }
 
 <h1>Redigera</h1>
-<hr />
+<hr>
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="Id">
 
             <div class="form-group">
                 <label asp-for="CommonName" class="control-label"></label>
-                <input asp-for="CommonName" class="form-control" />
+                <input asp-for="CommonName" class="form-control">
                 <span asp-validation-for="CommonName" class="text-danger"></span>
             </div>
 
             <div class="form-group">
                 <label asp-for="LatinName" class="control-label"></label>
-                <input asp-for="LatinName" class="form-control" />
+                <input asp-for="LatinName" class="form-control">
                 <span asp-validation-for="LatinName" class="text-danger"></span>
             </div>
 
             <div class="form-group">
                 <label asp-for="Species" class="control-label"></label>
-                <input asp-for="Species" class="form-control" />
+                <input asp-for="Species" class="form-control">
                 <span asp-validation-for="Species" class="text-danger"></span>
             </div>
 
             <div class="form-group">
                 <label asp-for="Quantity" class="control-label"></label>
-                <input asp-for="Quantity" class="form-control" />
+                <input asp-for="Quantity" class="form-control">
                 <span asp-validation-for="Quantity" class="text-danger"></span>
             </div>
 
             <div class="form-group">
                 <label asp-for="AddedDate" class="control-label"></label>
-                <input asp-for="AddedDate" class="form-control" />
+                <input asp-for="AddedDate" class="form-control">
                 <span asp-validation-for="AddedDate" class="text-danger"></span>
             </div>
 
@@ -51,24 +51,24 @@
             <!-- Visa nuvarande bild -->
             <div class="form-group">
                 <label>Nuvarande bild</label>
-                <br />
+                <br>
                 @if (!string.IsNullOrEmpty(Model.ImageName))
                 {
-                    <img src="/images/coral/@Model.ImageName" alt="Nuvarande bild" class="img-thumbnail" style="max-width: 150px;" />
+                    <img src="/images/coral/@Model.ImageName" alt="Nuvarande bild" class="img-thumbnail" style="max-width: 150px;">
                 }
             </div>
 
             <!-- Bevara det gamla filnamnet -->
-            <input type="hidden" asp-for="ImageName" />
+            <input type="hidden" asp-for="ImageName">
 
             <!-- Ladda upp en ny bild -->
             <div class="form-group">
                 <label>Ladda upp ny bild</label>
-                <input type="file" name="ImageFile" class="form-control" />
+                <input type="file" name="ImageFile" class="form-control">
             </div>
 
             <div class="form-group">
-                <input type="submit" value="Spara" class="btn btn-primary" style="margin-top: 10px;" />
+                <input type="submit" value="Spara" class="btn btn-primary" style="margin-top: 10px;">
             </div>
         </form>
     </div>
