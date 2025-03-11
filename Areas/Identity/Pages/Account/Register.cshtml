@@ -4,31 +4,33 @@
     ViewData["Title"] = "Registrera nytt konto";
 }
 
-
-
 <div class="d-flex justify-content-center vh-100 w-100">
-    
+
     <div class="col-12 col-sm-8 col-md-6 col-lg-4">
         <h1>@ViewData["Title"]</h1>
         <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
             <hr>
             <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
             <div class="form-floating mb-3">
-                <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="namn@exempel.se">
+                <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true"
+                    placeholder="namn@exempel.se">
                 <label asp-for="Input.Email">E-post</label>
                 <span asp-validation-for="Input.Email" class="text-danger"></span>
             </div>
             <div class="form-floating mb-3">
-                <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="lösenord">
+                <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true"
+                    placeholder="lösenord">
                 <label asp-for="Input.Password">Lösenord</label>
                 <span asp-validation-for="Input.Password" class="text-danger"></span>
             </div>
             <div class="form-floating mb-3">
-                <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="lösenord">
+                <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password"
+                    aria-required="true" placeholder="lösenord">
                 <label asp-for="Input.ConfirmPassword">Bekräfta lösenord</label>
                 <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
             </div>
-            <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-success" aria-label="Registrera nytt konto">Registrera</button>
+            <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-success"
+                aria-label="Registrera nytt konto">Registrera</button>
         </form>
     </div>
 </div>

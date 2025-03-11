@@ -104,7 +104,7 @@ namespace ReefTrack.Controllers
             return View(aquarium);
         }
 
-        // GET: Aquarium/Edit/5
+        //GET: Aquarium/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -121,9 +121,7 @@ namespace ReefTrack.Controllers
             return View(aquarium);
         }
 
-        // POST: Aquarium/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        //POST: Aquarium/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Size,Type,StartDate,ImageName,UserId")] Aquarium aquarium)
@@ -157,7 +155,7 @@ namespace ReefTrack.Controllers
             return View(aquarium);
         }
 
-        // GET: Aquarium/Delete/5
+        //GET: Aquarium/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -176,7 +174,7 @@ namespace ReefTrack.Controllers
             return View(aquarium);
         }
 
-        // POST: Aquarium/Delete/5
+        //POST: Aquarium/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

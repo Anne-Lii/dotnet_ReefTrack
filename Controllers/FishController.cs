@@ -21,14 +21,14 @@ namespace ReefTrack.Controllers
             _context = context;
         }
 
-        // GET: Fish
+        //GET: Fish
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.Fishes.Include(f => f.Aquarium);
             return View(await applicationDbContext.ToListAsync());
         }
 
-        // GET: Fish/Details/5
+        //GET: Fish/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -103,7 +103,7 @@ namespace ReefTrack.Controllers
             return View(fish);
         }
 
-        // POST: Fish/Edit/5
+        //POST: Fish/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,CommonName,LatinName,Species,Quantity,AddedDate,AquariumId,ImageFile,ImageName")] Fish fish)
@@ -163,7 +163,7 @@ namespace ReefTrack.Controllers
         }
 
 
-        // GET: Fish/Delete/5
+        //GET: Fish/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -182,7 +182,7 @@ namespace ReefTrack.Controllers
             return View(fish);
         }
 
-        // POST: Fish/Delete/5
+        //POST: Fish/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

@@ -21,14 +21,14 @@ namespace ReefTrack.Controllers
             _context = context;
         }
 
-        // GET: Coral
+        //GET: Coral
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.Corals.Include(c => c.Aquarium);
             return View(await applicationDbContext.ToListAsync());
         }
 
-        // GET: Coral/Details/5
+        //GET: Coral/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -47,7 +47,7 @@ namespace ReefTrack.Controllers
             return View(coral);
         }
 
-        // GET: Coral/Create
+        //GET: Coral/Create
         public IActionResult Create()
         {
             ViewData["AquariumId"] = new SelectList(_context.Aquariums, "Id", "Name");
@@ -90,7 +90,7 @@ namespace ReefTrack.Controllers
         }
 
 
-        // GET: Coral/Edit/5
+        //GET: Coral/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -107,7 +107,7 @@ namespace ReefTrack.Controllers
             return View(coral);
         }
 
-        // POST: Coral/Edit/5
+        //POST: Coral/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,CommonName,LatinName,Species,Quantity,AddedDate,AquariumId,ImageName")] Coral coral, IFormFile? ImageFile)
@@ -170,7 +170,7 @@ namespace ReefTrack.Controllers
             return View(coral);
         }
 
-        // GET: Coral/Delete/5
+        //GET: Coral/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -189,7 +189,7 @@ namespace ReefTrack.Controllers
             return View(coral);
         }
 
-        // POST: Coral/Delete/5
+        //POST: Coral/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

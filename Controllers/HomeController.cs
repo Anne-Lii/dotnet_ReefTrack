@@ -19,7 +19,7 @@ public class HomeController : Controller
 
     public async Task<IActionResult> Index()
     {
-        var aquariums = await _context.Aquariums.ToListAsync(); // Hämta alla akvarier
+        var aquariums = await _context.Aquariums.ToListAsync(); //Hämta alla akvarier
         return View(aquariums);
     }
 
